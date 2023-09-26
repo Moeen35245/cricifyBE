@@ -367,7 +367,7 @@ export const getScorecard = async (req, res, next) => {
                 score: response,
                 overs: formattedResults,
                 yetToBat,
-                target: response[0].MatchStatus > 2 ? matchDetails[1].TotalRuns : NaN,
+                target: response[0].MatchStatus > 2 ? matchDetails[1]?.TotalRuns : NaN,
             },
         });
     } catch (error) {
@@ -415,7 +415,7 @@ const updateScoreCardFunc = async (req, res, next) => {
         },
     });
 
-    console.log(matchStatus[1].TotalRuns);
+    // console.log(matchStatus[1]?.TotalRuns);
 
     // inning end
 
@@ -475,7 +475,7 @@ const updateScoreCardFunc = async (req, res, next) => {
     }
 
     if (currData[0].MatchStatus === 4) {
-        if (currData[0].TotalRuns > matchStatus[1].TotalRuns) {
+        if (currData[0].TotalRuns > matchStatus[1]?.TotalRuns) {
             // or target crossed
             // end match
 

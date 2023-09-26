@@ -172,12 +172,18 @@ export const login = (req, res, next) => {
 export const onBoard = async (req, res, next) => {
     const { firstName, lastName, phone, uid, address, city, state, pincode } = req.body;
 
+    if (!(firstName && lastName && phone && uid && address && city && state && pincode))
+        return res.status(400).json({ message: 'All fields required' });
+
+    console.log('user is ');
+
     try {
-        const user = await prisma.organizerDetail.findFirst({
+        const user = await prisma.user.findUnique({
             where: {
                 UserID: uid,
             },
         });
+
         if (!user) return res.status(404).json({ message: 'User not found' });
         await prisma.organizerDetail.create({
             data: {
